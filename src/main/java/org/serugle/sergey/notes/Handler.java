@@ -1,15 +1,16 @@
 package org.serugle.sergey.notes;
 
-import org.serugle.sergey.notes.repository.Repository;
+import org.serugle.sergey.notes.model.Note;
+import org.serugle.sergey.notes.repository.NoteRepository;
 
 import java.util.Scanner;
 
 public class Handler {
-    Repository repository;
-    Scanner scanner;
+    private NoteRepository noteRepository;
+    private Scanner scanner;
 
     public Handler() {
-        this.repository = new Repository();
+        this.noteRepository = new NoteRepository();
         this.scanner = new Scanner(System.in);
     }
 
@@ -26,25 +27,32 @@ public class Handler {
             else if (command.equals("delete_user")){
                 System.out.print("User: ");
                 user = this.scanner.nextLine();
-                this.repository.deleteUser(user);
+                this.noteRepository.deleteUser(user);
             }
             else if (command.equals("add")){
                 System.out.print("User: ");
                 user = this.scanner.nextLine();
                 System.out.print("Note: ");
                 note = this.scanner.nextLine();
-                this.repository.addNote(user, note);
+                this.noteRepository.addNote(user, note);
             }
             else if (command.equals("clear")){
-                this.repository.clear();
+                this.noteRepository.clear();
             }
             else if (command.equals("get_owner")){
                 System.out.print("Note: ");
                 note = this.scanner.nextLine();
-                System.out.println(this.repository.getOwnerOf(note));
+                System.out.println(this.noteRepository.getOwnerOf(note));
             }
             else if (command.equals("all")){
-                this.repository.fetchAll();
+                for (Note noteF : this.noteRepository.fetchAll()) {
+                    System.out.print("Owner: " + noteF.owner);
+                    System.out.println();
+                    System.out.print("Note: " + noteF.note);
+                    System.out.println();
+                    System.out.println();
+                    System.out.println();
+                }
             }
         }
         this.scanner.close();

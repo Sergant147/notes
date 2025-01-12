@@ -14,6 +14,9 @@ public class NoteValidator {
     }
 
     public boolean validate(String note) {
+        if (note.isEmpty()) {
+            return false;
+        }
         return this.minLength <= note.length() && note.length() <= this.maxLength;
     }
 }

@@ -3,7 +3,7 @@ package org.serugle.sergey.notes.repository;
 import java.util.ArrayList;
 
 
-public interface RepositoryInterface {
+public interface INoteRepository {
     public ArrayList<String> getNotesByUsername(String username);
 
     public void fetchAll();

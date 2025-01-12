@@ -1,14 +1,14 @@
 package org.serugle.sergey.notes.repository;
 
-import org.serugle.sergey.notes.expection.NoSuchUserExpection;
 import org.serugle.sergey.notes.model.Note;
 
 import java.util.ArrayList;
 
-public class Repository /*implements RepositoryInterface*/ {
+
+public class NoteRepository implements INoteRepository {
     private ArrayList<Note> notes;
 
-    public Repository() {
+    public NoteRepository() {
         this.notes = new ArrayList<Note>();
     }
 
@@ -22,24 +22,12 @@ public class Repository /*implements RepositoryInterface*/ {
         return out;
     }
 
-    public void fetchAll() {
-        for (Note note : this.notes) {
-            System.out.print("Owner: " + note.owner);
-            System.out.println();
-            System.out.print("Note: " + note.note);
-            System.out.println();
-            System.out.println();
-            System.out.println();
-        }
+    public ArrayList<Note> fetchAll() {
+        return this.notes;
     }
 
     public String getOwnerOf(String note) {
-        for (Note noteFound : this.notes) {
-            if (noteFound.note.equals(note)) {
-                return noteFound.owner;
-            }
-        }
-        throw new NoSuchUserExpection("No user found for the note!");
+        return this.notes.stream().filter(noteFound -> noteFound.note.equals(note)).findFirst().orElseThrow().owner;
     }
 
     public void clear() {
@@ -55,7 +43,7 @@ public class Repository /*implements RepositoryInterface*/ {
         this.notes.removeIf(note -> note.owner.equals(username));
         int notesLengthNew = this.notes.size();
         if (notesLengthOld == notesLengthNew) {
-            throw new NoSuchUserExpection("No such user found!");
+            throw new RuntimeException("No such user found!");
         }
     }
 }

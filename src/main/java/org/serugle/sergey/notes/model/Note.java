@@ -1,6 +1,6 @@
 package org.serugle.sergey.notes.model;
 
-import org.serugle.sergey.notes.expection.InvalidInputExpection;
+import org.serugle.sergey.notes.expection.InvalidInputException;
 import org.serugle.sergey.notes.validate.NoteValidator;
 import org.serugle.sergey.notes.validate.UserValidator;
 
@@ -15,13 +15,13 @@ public class Note {
     }
 
     private void validate() {
-        NoteValidator noteValidator = new NoteValidator();
         UserValidator userValidator = new UserValidator();
+        NoteValidator noteValidator = new NoteValidator();
         if (noteValidator.validate(this.note)){
-            throw new InvalidInputExpection("Not valid note!");
+            throw new InvalidInputException("Not valid note!");
         }
         if (userValidator.validate(this.owner)){
-            throw new InvalidInputExpection("Not valid username!");
+            throw new InvalidInputException("Not valid username!");
         }
     }
 }

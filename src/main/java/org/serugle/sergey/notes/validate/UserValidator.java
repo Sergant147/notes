@@ -13,7 +13,10 @@ public class UserValidator {
         this.maxLength = validator.MAX_LENGTH();
     }
 
-    public boolean validate(String note) {
-        return this.minLength <= note.length() && note.length() <= this.maxLength;
+    public boolean validate(String user) {
+        if (user.isEmpty()) {
+            return false;
+        }
+        return this.minLength <= user.length() && user.length() <= this.maxLength;
     }
 }
